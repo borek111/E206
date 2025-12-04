@@ -12,10 +12,8 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Logowanie i rejestracja bez autoryzacji
 app.use('/', authRouter);
 
-// Notatki wymagają tokenu w URL
 app.use('/', requireAuth, notesRouter);
 
 module.exports = app;
