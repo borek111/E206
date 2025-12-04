@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoSQL Notes</title>
+</head>
+
+<body>
+    <header>
+        <h1>Notes App</h1>
+        <nav>
+            <% if (typeof token !=='undefined' && token) { %>
+                <a href="/notes?token=<%= token %>">Lista</a> |
+                <a href="/notes/add?token=<%= token %>">Dodaj notatkę</a> |
+                <a href="/">Wyloguj</a>
+                <% } else { %>
+                    <a href="/">Logowanie</a> |
+                    <a href="/register">Rejestracja</a>
+                    <% } %>
+        </nav>
+        <hr>
+    </header>

@@ -1,0 +1,6 @@
+1. Uruchom docker desktop i w terminalu wpisz: docker run -d --name czolgi -p 27017:27017 mongo:6.0
+
+nazwa bazy: czolgi
+Port w kontenerze: 27017
+Port na komputerze: 27017
+użyty silnik: mongo6.0

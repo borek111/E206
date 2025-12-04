@@ -1,0 +1,10 @@
+<%- include('../partials/header', { token: token }) %>
+    <main>
+        <form action="/notes/add?token=<%= token %>" method="POST">
+            tytuł: <input type="text" name="title" placeholder="Tytuł notatki" required> <br>
+            content:<textarea name="content" placeholder="Treść notatki" required></textarea> <br>
+            status: <input type="text" id="status" name="status" required></input> <br>
+            <button type="submit">Dodaj notatkę</button>
+        </form>
+    </main>
+    <%- include('../partials/footer') %>

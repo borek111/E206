@@ -1,0 +1,23 @@
+<%- include('../partials/header', { token: null }) %>
+    <main>
+        <h2>Rejestracja</h2>
+        <% if (error) { %>
+            <p>
+                <%= error %>
+            </p>
+            <% } %>
+                <% if (success) { %>
+                    <p>
+                        <%= success %>
+                    </p>
+                    <% } %>
+                        <form action="/register" method="POST">
+                            <label>Podaj adres e-mail:</label>
+                            <input type="email" name="Email" required> <br>
+                            <label>Hasło (min. 6 znaków):</label>
+                            <input type="password" name="Password" minlength="6" required> <br>
+                            <button type="submit">Zarejestruj się</button>
+                        </form>
+                        <p>Masz już konto? <a href="/">Zaloguj się</a></p>
+    </main>
+    <%- include('../partials/footer') %>
