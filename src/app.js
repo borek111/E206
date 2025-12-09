@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 const notesRouter = require('./routes/notesRoutes');
 const authRouter = require('./routes/authRoutes');
 const { requireAuth } = require('./controllers/authController');
@@ -11,6 +12,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
 
 app.use('/', authRouter);
 

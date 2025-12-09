@@ -1,6 +1,6 @@
 <%- include('../partials/header', { token: token }) %>
     <main>
-        <form action="/notes/add?token=<%= token %>" method="POST">
+        <form action="/notes/add" method="POST">
             tytuł: <input type="text" name="title" placeholder="Tytuł notatki" required> <br>
             content:<textarea name="content" placeholder="Treść notatki" required></textarea> <br>
             status: <input type="text" id="status" name="status" required></input> <br>

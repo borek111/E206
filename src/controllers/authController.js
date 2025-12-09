@@ -28,7 +28,8 @@ async function postLogin(req, res) {
         const token = crypto.randomBytes(32).toString('hex');
         tokens.set(token, { userId: user._id, email: user.email });
 
-        res.redirect('/notes?token=' + token);
+        res.cookie('token', token, { httpOnly: true });
+        res.redirect('/notes');
     } catch (err) {
         console.error('Login error:', err);
         res.render('pages/login', { error: 'Wystąpił błąd podczas logowania', success: null });
@@ -62,9 +63,9 @@ async function postRegister(req, res) {
     }
 }
 
-// Middleware sprawdzający token w URL
+// Middleware sprawdzający token w ciasteczkach
 function requireAuth(req, res, next) {
-    const token = req.query.token;
+    const token = req.cookies.token;
 
     if (!token || !tokens.has(token)) {
         return res.redirect('/');
@@ -75,4 +76,9 @@ function requireAuth(req, res, next) {
     next();
 }
 
-module.exports = { getLoginForm, postLogin, getRegisterForm, postRegister, requireAuth };
+function logout(req, res) {
+    res.clearCookie('token');
+    res.redirect('/');
+}
+
+module.exports = { getLoginForm, postLogin, getRegisterForm, postRegister, requireAuth, logout };
