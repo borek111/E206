@@ -5,7 +5,7 @@ const crypto = require('crypto');
 const tokens = new Map();
 
 function getLoginForm(req, res) {
-    res.render('pages/login', { error: null, success: null });
+    res.render('pages/login', { error: null });
 }
 
 async function postLogin(req, res) {
@@ -15,29 +15,29 @@ async function postLogin(req, res) {
         const user = await usersModel.getUserByEmail(Email);
 
         if (!user) {
-            return res.render('pages/login', { error: 'Nieprawidłowy email lub hasło', success: null });
+            return res.render('pages/login', { error: 'Nieprawidłowy email lub hasło' });
         }
 
         const isValid = await usersModel.verifyPassword(user.password, Password);
 
         if (!isValid) {
-            return res.render('pages/login', { error: 'Nieprawidłowy email lub hasło', success: null });
+            return res.render('pages/login', { error: 'Nieprawidłowy email lub hasło' });
         }
 
         // Generuj token i przekieruj
         const token = crypto.randomBytes(32).toString('hex');
         tokens.set(token, { userId: user._id, email: user.email });
 
-        res.cookie('token', token,{maxAge: 24 * 60 * 60 * 1000}); // 1 day
+        res.cookie('token', token, { maxAge: 24 * 60 * 60 * 1000 }); // 1 day
         res.redirect('/notes');
     } catch (err) {
         console.error('Login error:', err);
-        res.render('pages/login', { error: 'Wystąpił błąd podczas logowania', success: null });
+        res.render('pages/login', { error: 'Wystąpił błąd podczas logowania' });
     }
 }
 
 function getRegisterForm(req, res) {
-    res.render('pages/register', { error: null, success: null });
+    res.render('pages/register', { error: null });
 }
 
 async function postRegister(req, res) {
@@ -47,11 +47,11 @@ async function postRegister(req, res) {
         const existingUser = await usersModel.getUserByEmail(Email);
 
         if (existingUser) {
-            return res.render('pages/register', { error: 'Użytkownik z tym adresem email już istnieje', success: null });
+            return res.render('pages/register', { error: 'Użytkownik z tym adresem email już istnieje' });
         }
 
         if (Password.length < 6) {
-            return res.render('pages/register', { error: 'Hasło musi mieć co najmniej 6 znaków', success: null });
+            return res.render('pages/register', { error: 'Hasło musi mieć co najmniej 6 znaków' });
         }
 
         await usersModel.createUser(Email, Password);
@@ -59,7 +59,7 @@ async function postRegister(req, res) {
         res.redirect('/');
     } catch (err) {
         console.error('Registration error:', err);
-        res.render('pages/register', { error: 'Wystąpił błąd podczas rejestracji', success: null });
+        res.render('pages/register', { error: 'Wystąpił błąd podczas rejestracji' });
     }
 }
 

@@ -1,3 +1,5 @@
+Poprawne instrukcje uruchomienia bazy (Mongo) za pomocą docker run z opisem portów i danych logowania.
+
 1. Pobierz aplikacje Docker Desktop z https://www.docker.com/products/docker-desktop/ 
 2. Uruchom docker desktop i w terminalu w prawym dolnym rogu wpisz: docker run -d --name czolgi -p 27017:27017 mongo:6.0
 3. Aby uruchomic koljeny raz użyj: docker start czolgi
