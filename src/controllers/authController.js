@@ -28,7 +28,7 @@ async function postLogin(req, res) {
         const token = crypto.randomBytes(32).toString('hex');
         tokens.set(token, { userId: user._id, email: user.email });
 
-        res.cookie('token', token, { httpOnly: true });
+        res.cookie('token', token,{maxAge: 24 * 60 * 60 * 1000}); // 1 day
         res.redirect('/notes');
     } catch (err) {
         console.error('Login error:', err);
@@ -78,6 +78,7 @@ function requireAuth(req, res, next) {
 
 function logout(req, res) {
     res.clearCookie('token');
+    if (req.token) tokens.delete(req.token);
     res.redirect('/');
 }
 
