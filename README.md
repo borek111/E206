@@ -65,3 +65,6 @@ Aplikacja internetowa służąca do zarządzania listami zadań. Umożliwia uży
 ## Autorzy
 - Przemysław Grabecki 4E
 
+## Licencja
+Projekt objęty licencją MIT. Szczegóły w pliku [LICENCE.md](./LICENCE.md).
+
