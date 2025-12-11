@@ -1,13 +1,14 @@
 <%- include('../partials/header', { token: token }) %>
     <main>
         <ul>
-            <% notes.forEach(note=> { %>
+            <% ToDoLists.forEach(ToDoList=> { %>
                 <li>
                     <b>
-                        <%= note.title %>
-                    </b> - <%= note.content %> - <%= note.status %>
-                            <a href="/notes/edit/<%= note._id %>">Edytuj</a>
-                            <form action="/notes/delete/<%= note._id %>" method="POST" style="display:inline;">
+                        <%= ToDoList.title %>
+                    </b> -
+                    <%= ToDoList.tresc %> - <%= ToDoList.status %>
+                            <a href="/ToDoLists/edit/<%= ToDoList._id %>">Edytuj</a>
+                            <form action="/ToDoLists/delete/<%= ToDoList._id %>" method="POST" style="display:inline;">
                                 <button type="submit">Usuń</button>
                             </form>
                 </li>

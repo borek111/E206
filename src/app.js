@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const notesRouter = require('./routes/notesRoutes');
+const ToDoListsRouter = require('./routes/ToDoListsRoutes');
 const authRouter = require('./routes/authRoutes');
 const { requireAuth } = require('./controllers/authController');
 
@@ -16,6 +16,6 @@ app.use(cookieParser());
 
 app.use('/', authRouter);
 
-app.use('/', requireAuth, notesRouter);
+app.use('/', requireAuth, ToDoListsRouter);
 
 module.exports = app;

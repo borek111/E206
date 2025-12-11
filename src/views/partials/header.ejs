@@ -4,17 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NoSQL Notes</title>
+    <title>To Do List</title>
     <link rel="stylesheet" href="/style/style.css">
 </head>
 
 <body>
     <header>
-        <h1>Notes App</h1>
+        <h1>To Do List</h1>
         <nav>
             <% if (typeof token !=='undefined' && token) { %>
-                <a href="/notes">Lista</a> |
-                <a href="/notes/add">Dodaj notatkę</a> |
+                <a href="/ToDoLists">Lista</a> |
+                <a href="/ToDoLists/add">Dodaj notatkę</a> |
                 <a href="/logout">Wyloguj</a>
                 <% } else { %>
                     <a href="/">Logowanie</a> |

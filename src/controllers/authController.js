@@ -29,7 +29,7 @@ async function postLogin(req, res) {
         tokens.set(token, { userId: user._id, email: user.email });
 
         res.cookie('token', token, { maxAge: 24 * 60 * 60 * 1000 }); // 1 day
-        res.redirect('/notes');
+        res.redirect('/ToDoLists');
     } catch (err) {
         console.error('Login error:', err);
         res.render('pages/login', { error: 'Wystąpił błąd podczas logowania' });
