@@ -2,7 +2,7 @@ Poprawne instrukcje uruchomienia bazy (Mongo) za pomocą docker run z opisem por
 
 1. Pobierz aplikacje Docker Desktop z https://www.docker.com/products/docker-desktop/ 
 2. Uruchom docker desktop i w terminalu w prawym dolnym rogu wpisz: docker run -d --name ToDoList -p 27017:27017 mongo:6.0
-3. Aby uruchomic koljeny raz użyj: docker start ToDoList
+3. Aby uruchomic kolejny raz użyj: docker start ToDoList
 
 nazwa bazy: projekt
 Port w kontenerze: 27017

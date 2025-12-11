@@ -6,11 +6,14 @@
                     <b>
                         <%= ToDoList.title %>
                     </b> -
-                    <%= ToDoList.tresc %> - <%= ToDoList.status %>
-                            <a href="/ToDoLists/edit/<%= ToDoList._id %>">Edytuj</a>
-                            <form action="/ToDoLists/delete/<%= ToDoList._id %>" method="POST" style="display:inline;">
-                                <button type="submit">Usuń</button>
-                            </form>
+                    <%= ToDoList.tresc %> - <%= ToDoList.status %> -
+                            Od: <%= ToDoList.DataUtworzenia %> - Do: <%= ToDoList.DataZakonczenia %> -
+                                    Pilne: <%= ToDoList.Pilne ? 'Tak' : 'Nie' %>
+                                        <a href="/ToDoLists/edit/<%= ToDoList._id %>">Edytuj</a>
+                                        <form action="/ToDoLists/delete/<%= ToDoList._id %>" method="POST"
+                                            style="display:inline;">
+                                            <button type="submit">Usuń</button>
+                                        </form>
                 </li>
                 <% }) %>
         </ul>

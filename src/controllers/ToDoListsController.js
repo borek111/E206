@@ -10,8 +10,9 @@ function getAddForm(req, res) {
 }
 
 async function postAdd(req, res) {
-    const { title, tresc, status } = req.body;
-    await ToDoListsModel.addToDoList(title, tresc, status, req.user.userId.toString());
+    const { title, tresc, status, DataUtworzenia, DataZakonczenia } = req.body;
+    const Pilne = req.body.Pilne === 'on';
+    await ToDoListsModel.addToDoList(title, tresc, status, DataUtworzenia, DataZakonczenia, Pilne, req.user.userId.toString());
     res.redirect('/ToDoLists');
 }
 
@@ -24,8 +25,9 @@ async function getEditForm(req, res) {
 }
 
 async function postEdit(req, res) {
-    const { title, tresc, status } = req.body;
-    await ToDoListsModel.updateToDoList(req.params.id, title, tresc, status, req.user.userId.toString());
+    const { title, tresc, status, DataUtworzenia, DataZakonczenia } = req.body;
+    const Pilne = req.body.Pilne === 'on';
+    await ToDoListsModel.updateToDoList(req.params.id, title, tresc, status, DataUtworzenia, DataZakonczenia, Pilne, req.user.userId.toString());
     res.redirect('/ToDoLists');
 }
 
