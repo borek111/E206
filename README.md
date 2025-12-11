@@ -18,12 +18,17 @@ Aplikacja internetowa służąca do zarządzania listami zadań. Umożliwia uży
 ### Wymagania wstępne
 - Node.js
 - Docker Desktop 
+- Git
 
 ### Krok 1: Uruchomienie bazy danych (MongoDB)
-  - informacje znajdują się w pliku docker.txt
+  - informacje znajdują się w pliku [docker.txt](./docker.txt)
 
 ### Krok 2: Instalacja i uruchomienie aplikacji
-1. Otwórz terminal w głównym katalogu projektu.
+1. Otwórz terminal i wpisz:
+   ```bash
+   git clone https://github.com/borek111/E206
+   cd E206
+   ```
 2. Zainstaluj zależności projektu:
    ```bash
    npm install
