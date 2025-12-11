@@ -1,5 +1,30 @@
 <%- include('../partials/header', { token: token }) %>
     <main>
+        <form action="/ToDoLists" method="GET">
+            <h3>Filtrowanie i Sortowanie</h3>
+            Tytuł: <input type="text" name="title" value="<%= filters.title || '' %>">
+            Pilne:
+            <select name="Pilne">
+                <option value="" <%=filters.Pilne==='' ? 'selected' : '' %>>Wszystkie</option>
+                <option value="true" <%=filters.Pilne==='true' ? 'selected' : '' %>>Tak</option>
+                <option value="false" <%=filters.Pilne==='false' ? 'selected' : '' %>>Nie</option>
+            </select>
+            <br>
+            Sortuj po:
+            <select name="sortBy">
+                <option value="createdAt" <%=filters.sortBy==='createdAt' ? 'selected' : '' %>>Domyślne</option>
+                <option value="title" <%=filters.sortBy==='title' ? 'selected' : '' %>>Tytuł</option>
+                <option value="DataUtworzenia" <%=filters.sortBy==='DataUtworzenia' ? 'selected' : '' %>>Data utworzenia
+                </option>
+            </select>
+            <select name="sortOrder">
+                <option value="desc" <%=filters.sortOrder==='desc' ? 'selected' : '' %>>Malejąco</option>
+                <option value="asc" <%=filters.sortOrder==='asc' ? 'selected' : '' %>>Rosnąco</option>
+            </select>
+            <br>
+            <button type="submit">Zastosuj</button>
+            <button type="button" onclick="window.location.href='/ToDoLists'">Resetuj</button>
+        </form>
         <ul>
             <% ToDoLists.forEach(ToDoList=> { %>
                 <li>

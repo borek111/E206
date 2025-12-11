@@ -1,9 +1,28 @@
 const { ObjectId } = require('mongodb');
 const { getDB } = require('../data/connection');
 
-async function getAllToDoLists(id) {
+async function getAllToDoLists(id, filters = {}) {
     const db = getDB();
-    return await db.collection('ToDoList').find({ id }).sort({ createdAt: -1 }).toArray();
+    const query = { id };
+
+    if (filters.title) {
+        query.title = { $regex: filters.title, $options: 'i' };
+    }
+    if (filters.Pilne) {
+        if (filters.Pilne === 'true') {
+            query.Pilne = true;
+        } else if (filters.Pilne === 'false') {
+            query.Pilne = false;
+        }
+    }
+
+    let sort = { createdAt: -1 };
+    if (filters.sortBy) {
+        const order = filters.sortOrder === 'asc' ? 1 : -1;
+        sort = { [filters.sortBy]: order };
+    }
+
+    return await db.collection('ToDoList').find(query).sort(sort).toArray();
 }
 
 async function getToDoListById(toDoListId, id) {

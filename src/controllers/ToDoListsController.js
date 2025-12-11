@@ -1,8 +1,14 @@
 const ToDoListsModel = require('../models/ToDoListsModel');
 
 async function getAll(req, res) {
-    const ToDoLists = await ToDoListsModel.getAllToDoLists(req.user.userId.toString());
-    res.render('pages/index', { ToDoLists, token: req.token });
+    const filters = {
+        title: req.query.title,
+        Pilne: req.query.Pilne,
+        sortBy: req.query.sortBy,
+        sortOrder: req.query.sortOrder
+    };
+    const ToDoLists = await ToDoListsModel.getAllToDoLists(req.user.userId.toString(), filters);
+    res.render('pages/index', { ToDoLists, token: req.token, filters });
 }
 
 function getAddForm(req, res) {
