@@ -1,15 +1,24 @@
 <%- include('../partials/header', { token: token }) %>
     <main>
-        <form action="/ToDoLists/edit/<%= ToDoList._id %>" method="POST">
-            tytuł: <input type="text" name="title" value="<%= ToDoList.title %>" required> <br>
-            tresc:<textarea name="tresc" required><%= ToDoList.tresc %></textarea> <br>
-            status: <input type="text" name="status" value="<%= ToDoList.status %>" required></input> <br>
-            Data utworzenia: <input type="date" name="DataUtworzenia" value="<%= ToDoList.DataUtworzenia %>" required>
-            <br>
-            Data zakończenia: <input type="date" name="DataZakonczenia" value="<%= ToDoList.DataZakonczenia %>"
-                required> <br>
-            Pilne?: <input type="checkbox" name="Pilne" <%=ToDoList.Pilne ? 'checked' : '' %>> <br>
-            <button type="submit">Zapisz zmiany</button>
-        </form>
+        <% if (typeof error !=='undefined' && error) { %>
+                <%= error %>
+            <% } %>
+                <form action="/ToDoLists/edit/<%= ToDoList._id %>" method="POST">
+                    tytuł: <input type="text" name="title" value="<%= ToDoList.title %>" required> <br>
+                    tresc:<textarea name="tresc" required><%= ToDoList.tresc %></textarea> <br>
+                    status: 
+                    <select name="status" required>
+                        <option value="Do zrobienia" <%= ToDoList.status === 'Do zrobienia' ? 'selected' : '' %>>Do zrobienia</option>
+                        <option value="W trakcie" <%= ToDoList.status === 'W trakcie' ? 'selected' : '' %>>W trakcie</option>
+                        <option value="Zakończone" <%= ToDoList.status === 'Zakończone' ? 'selected' : '' %>>Zakończone</option>
+                    </select> <br>
+                    Data utworzenia: <input type="date" name="DataUtworzenia" value="<%= ToDoList.DataUtworzenia %>"
+                        required>
+                    <br>
+                    Data zakończenia: <input type="date" name="DataZakonczenia" value="<%= ToDoList.DataZakonczenia %>"
+                        required> <br>
+                    Pilne?: <input type="checkbox" name="Pilne" <%=ToDoList.Pilne ? 'checked' : '' %>> <br>
+                    <button type="submit">Zapisz zmiany</button>
+                </form>
     </main>
     <%- include('../partials/footer') %>

@@ -1,13 +1,30 @@
 <%- include('../partials/header', { token: token }) %>
     <main>
-        <form action="/ToDoLists/add" method="POST">
-            tytuł: <input type="text" name="title" placeholder="Tytuł notatki" required> <br>
-            tresc:<textarea name="tresc" placeholder="Treść notatki" required></textarea> <br>
-            status: <input type="text" id="status" name="status" required></input> <br>
-            Data utworzenia: <input type="date" name="DataUtworzenia" required> <br>
-            Data zakończenia: <input type="date" name="DataZakonczenia" required> <br>
-            Pilne?: <input type="checkbox" name="Pilne"> <br>
-            <button type="submit">Dodaj notatkę</button>
-        </form>
+        <% if (typeof error !=='undefined' && error) { %>
+            <%= error %>
+                <% } %>
+                    <form action="/ToDoLists/add" method="POST">
+                        tytuł: <input type="text" name="title" placeholder="Tytuł notatki"
+                            value="<%= typeof formData !== 'undefined' ? formData.title : '' %>" required> <br>
+                        tresc:<textarea name="tresc" placeholder="Treść notatki"
+                            required><%= typeof formData !== 'undefined' ? formData.tresc : '' %></textarea> <br>
+                        status:
+                        <select name="status" id="status" required>
+                            <option value="Do zrobienia" <%=(typeof formData !=='undefined' &&
+                                formData.status==='Do zrobienia' ) ? 'selected' : '' %>>Do zrobienia</option>
+                            <option value="W trakcie" <%=(typeof formData !=='undefined' &&
+                                formData.status==='W trakcie' ) ? 'selected' : '' %>>W trakcie</option>
+                            <option value="Zakończone" <%=(typeof formData !=='undefined' &&
+                                formData.status==='Zakończone' ) ? 'selected' : '' %>>Zakończone</option>
+                        </select> <br>
+                        Data utworzenia: <input type="date" name="DataUtworzenia"
+                            value="<%= typeof formData !== 'undefined' ? formData.DataUtworzenia : '' %>" required> <br>
+                        Data zakończenia: <input type="date" name="DataZakonczenia"
+                            value="<%= typeof formData !== 'undefined' ? formData.DataZakonczenia : '' %>" required>
+                        <br>
+                        Pilne?: <input type="checkbox" name="Pilne" <%=(typeof formData !=='undefined' &&
+                            formData.Pilne==='on' ) ? 'checked' : '' %>> <br>
+                        <button type="submit">Dodaj notatkę</button>
+                    </form>
     </main>
     <%- include('../partials/footer') %>

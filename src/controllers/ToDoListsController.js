@@ -12,12 +12,21 @@ async function getAll(req, res) {
 }
 
 function getAddForm(req, res) {
-    res.render('pages/add', { token: req.token });
+    res.render('pages/add', { token: req.token, error: null, formData: {} });
 }
 
 async function postAdd(req, res) {
     const { title, tresc, status, DataUtworzenia, DataZakonczenia } = req.body;
     const Pilne = req.body.Pilne === 'on';
+
+    if (new Date(DataZakonczenia) < new Date(DataUtworzenia)) {
+        return res.render('pages/add', {
+            token: req.token,
+            error: 'Data zakończenia nie może być wcześniej niż data utworzenia',
+            formData: req.body
+        });
+    }
+
     await ToDoListsModel.addToDoList(title, tresc, status, DataUtworzenia, DataZakonczenia, Pilne, req.user.userId.toString());
     res.redirect('/ToDoLists');
 }
@@ -27,12 +36,30 @@ async function getEditForm(req, res) {
     if (!ToDoList) {
         return res.redirect('/ToDoLists');
     }
-    res.render('pages/edit', { ToDoList, token: req.token });
+    res.render('pages/edit', { ToDoList, token: req.token, error: null });
 }
 
 async function postEdit(req, res) {
     const { title, tresc, status, DataUtworzenia, DataZakonczenia } = req.body;
     const Pilne = req.body.Pilne === 'on';
+
+    if (new Date(DataZakonczenia) < new Date(DataUtworzenia)) {
+        const ToDoList = {
+            _id: req.params.id,
+            title,
+            tresc,
+            status,
+            DataUtworzenia,
+            DataZakonczenia,
+            Pilne
+        };
+        return res.render('pages/edit', {
+            token: req.token,
+            error: 'Data zakończenia nie może być wcześniej niż data utworzenia',
+            ToDoList
+        });
+    }
+
     await ToDoListsModel.updateToDoList(req.params.id, title, tresc, status, DataUtworzenia, DataZakonczenia, Pilne, req.user.userId.toString());
     res.redirect('/ToDoLists');
 }
