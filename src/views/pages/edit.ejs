@@ -4,8 +4,8 @@
                 <%= error %>
             <% } %>
                 <form action="/ToDoLists/edit/<%= ToDoList._id %>" method="POST">
-                    tytuł: <input type="text" name="title" value="<%= ToDoList.title %>" required> <br>
-                    tresc:<textarea name="tresc" required><%= ToDoList.tresc %></textarea> <br>
+                    tytuł: <input type="text" name="title" value="<%= ToDoList.title %>" required minlength="3"> <br>
+                    tresc:<textarea name="tresc" required minlength="3"><%= ToDoList.tresc %></textarea> <br>
                     status: 
                     <select name="status" required>
                         <option value="Do zrobienia" <%= ToDoList.status === 'Do zrobienia' ? 'selected' : '' %>>Do zrobienia</option>

@@ -5,9 +5,10 @@
                 <% } %>
                     <form action="/ToDoLists/add" method="POST">
                         tytuł: <input type="text" name="title" placeholder="Tytuł notatki"
-                            value="<%= typeof formData !== 'undefined' ? formData.title : '' %>" required> <br>
-                        tresc:<textarea name="tresc" placeholder="Treść notatki"
-                            required><%= typeof formData !== 'undefined' ? formData.tresc : '' %></textarea> <br>
+                            value="<%= typeof formData !== 'undefined' ? formData.title : '' %>" required minlength="3">
+                        <br>
+                        tresc:<textarea name="tresc" placeholder="Treść notatki" required
+                            minlength="3"><%= typeof formData !== 'undefined' ? formData.tresc : '' %></textarea> <br>
                         status:
                         <select name="status" id="status" required>
                             <option value="Do zrobienia" <%=(typeof formData !=='undefined' &&

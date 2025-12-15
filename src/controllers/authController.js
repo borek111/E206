@@ -43,6 +43,11 @@ function getRegisterForm(req, res) {
 async function postRegister(req, res) {
     const { Email, Password } = req.body;
 
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    if (!passwordRegex.test(Password)) {
+        return res.render('pages/register', { error: 'Hasło musi mieć co najmniej 8 znaków, zawierać jedną małą literę, jedną dużą literę i jedną cyfrę.' });
+    }
+
     try {
         const existingUser = await usersModel.getUserByEmail(Email);
 
