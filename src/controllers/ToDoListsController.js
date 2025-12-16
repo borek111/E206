@@ -12,7 +12,23 @@ async function getAll(req, res) {
 }
 
 function getAddForm(req, res) {
-    res.render('pages/add', { token: req.token, error: null, formData: {} });
+    const now = new Date();
+    const nextWeekDate = new Date(now);
+    nextWeekDate.setDate(now.getDate() + 7);
+
+    const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+    const defaultFormData = {
+        DataUtworzenia: formatDate(now),
+        DataZakonczenia: formatDate(nextWeekDate)
+    };
+
+    res.render('pages/add', { token: req.token, error: null, formData: defaultFormData });
 }
 
 async function postAdd(req, res) {
