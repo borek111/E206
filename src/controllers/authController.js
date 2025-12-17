@@ -15,13 +15,13 @@ async function postLogin(req, res) {
         const user = await usersModel.getUserByEmail(email);
 
         if (!user) {
-            return res.render('pages/login', { error: 'Nieprawidłowy email lub hasło' });
+            return res.status(401).render('pages/login', { error: 'Nieprawidłowy email lub hasło' });
         }
 
         const isValid = await usersModel.verifyPassword(user.password, password);
 
         if (!isValid) {
-            return res.render('pages/login', { error: 'Nieprawidłowy email lub hasło' });
+            return res.status(401).render('pages/login', { error: 'Nieprawidłowy email lub hasło' });
         }
 
         // Generuj token i przekieruj
@@ -32,7 +32,7 @@ async function postLogin(req, res) {
         res.redirect('/ToDoLists');
     } catch (err) {
         console.error('Login error:', err);
-        res.render('pages/login', { error: 'Wystąpił błąd podczas logowania' });
+        res.status(500).render('pages/errors/500', { message: 'Wystąpił błąd podczas logowania' });
     }
 }
 
@@ -45,18 +45,18 @@ async function postRegister(req, res) {
 
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
     if (!passwordRegex.test(password)) {
-        return res.render('pages/register', { error: 'Hasło musi mieć co najmniej 8 znaków, zawierać jedną małą literę, jedną dużą literę i jedną cyfrę.' });
+        return res.status(400).render('pages/register', { error: 'Hasło musi mieć co najmniej 8 znaków, zawierać jedną małą literę, jedną dużą literę i jedną cyfrę.' });
     }
 
     try {
         const existingUser = await usersModel.getUserByEmail(email);
 
         if (existingUser) {
-            return res.render('pages/register', { error: 'Użytkownik z tym adresem email już istnieje' });
+            return res.status(409).render('pages/register', { error: 'Użytkownik z tym adresem email już istnieje' });
         }
 
         if (password.length < 6) {
-            return res.render('pages/register', { error: 'Hasło musi mieć co najmniej 6 znaków' });
+            return res.status(400).render('pages/register', { error: 'Hasło musi mieć co najmniej 6 znaków' });
         }
 
         await usersModel.createUser(email, password);
@@ -64,7 +64,7 @@ async function postRegister(req, res) {
         res.redirect('/');
     } catch (err) {
         console.error('Registration error:', err);
-        res.render('pages/register', { error: 'Wystąpił błąd podczas rejestracji' });
+        res.status(500).render('pages/errors/500', { message: 'Wystąpił błąd podczas rejestracji' });
     }
 }
 
@@ -73,7 +73,9 @@ function requireAuth(req, res, next) {
     const token = req.cookies.token;
 
     if (!token || !tokens.has(token)) {
-        return res.redirect('/');
+        const err = new Error('Brak autoryzacji');
+        err.status = 401;
+        return next(err);
     }
 
     req.user = tokens.get(token);

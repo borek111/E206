@@ -1,0 +1,13 @@
+<%- include('../../partials/header', { token: typeof token !=='undefined' ? token : null }) %>
+    <main>
+        <div">
+            <h1>400 - Nieprawidłowe żądanie</h1>
+            <p>Wysłane dane są niepoprawne.</p>
+            <% if (typeof message !=='undefined' ) { %>
+                <p>Szczegóły: <%= message %>
+                </p>
+                <% } %>
+                    <a href="javascript:history.back()">Wróć do poprzedniej strony</a>
+        </div>
+    </main>
+    <%- include('../../partials/footer') %>

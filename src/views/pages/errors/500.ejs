@@ -1,0 +1,13 @@
+<%- include('../../partials/header', { token: typeof token !=='undefined' ? token : null }) %>
+    <main>
+        <div>
+            <h1>500 - Błąd serwera</h1>
+            <p>Wystąpił nieoczekiwany błąd serwera.</p>
+            <% if (typeof message !=='undefined' ) { %>
+                <p>Szczegóły: <%= message %>
+                </p>
+                <% } %>
+                    <a href="/">Wróć na stronę główną</a>
+        </div>
+    </main>
+    <%- include('../../partials/footer') %>
