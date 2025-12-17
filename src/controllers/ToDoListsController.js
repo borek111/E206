@@ -7,8 +7,8 @@ async function getAll(req, res) {
         sortBy: req.query.sortBy,
         sortOrder: req.query.sortOrder
     };
-    const ToDoLists = await ToDoListsModel.getAllToDoLists(req.user.userId.toString(), filters);
-    res.render('pages/index', { ToDoLists, token: req.token, filters });
+    const toDoLists = await ToDoListsModel.getAllToDoLists(req.user.userId.toString(), filters);
+    res.render('pages/index', { toDoLists, token: req.token, filters });
 }
 
 function getAddForm(req, res) {
@@ -48,11 +48,11 @@ async function postAdd(req, res) {
 }
 
 async function getEditForm(req, res) {
-    const ToDoList = await ToDoListsModel.getToDoListById(req.params.id, req.user.userId.toString());
-    if (!ToDoList) {
+    const toDoList = await ToDoListsModel.getToDoListById(req.params.id, req.user.userId.toString());
+    if (!toDoList) {
         return res.redirect('/ToDoLists');
     }
-    res.render('pages/edit', { ToDoList, token: req.token, error: null });
+    res.render('pages/edit', { toDoList, token: req.token, error: null });
 }
 
 async function postEdit(req, res) {
@@ -60,7 +60,7 @@ async function postEdit(req, res) {
     const Pilne = req.body.Pilne === 'on';
 
     if (new Date(DataZakonczenia) < new Date(DataUtworzenia)) {
-        const ToDoList = {
+        const toDoList = {
             _id: req.params.id,
             title,
             tresc,
@@ -72,7 +72,7 @@ async function postEdit(req, res) {
         return res.render('pages/edit', {
             token: req.token,
             error: 'Data zakończenia nie może być wcześniej niż data utworzenia',
-            ToDoList
+            toDoList
         });
     }
 

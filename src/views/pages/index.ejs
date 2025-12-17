@@ -25,16 +25,16 @@
             <button type="button" onclick="window.location.href='/ToDoLists'">Resetuj</button>
         </form>
         <ul>
-            <% ToDoLists.forEach(ToDoList=> { %>
+            <% toDoLists.forEach(toDoList=> { %>
                 <li>
                     <b>
-                        <%= ToDoList.title %>
+                        <%= toDoList.title %>
                     </b> -
-                    <%= ToDoList.tresc %> - <%= ToDoList.status %> -
-                            Od: <%= ToDoList.DataUtworzenia %> - Do: <%= ToDoList.DataZakonczenia %> -
-                                    Pilne: <%= ToDoList.Pilne ? 'Tak' : 'Nie' %>
-                                        <a href="/ToDoLists/edit/<%= ToDoList._id %>">Edytuj</a>
-                                        <form action="/ToDoLists/delete/<%= ToDoList._id %>" method="POST"
+                    <%= toDoList.tresc %> - <%= toDoList.status %> -
+                            Od: <%= toDoList.DataUtworzenia %> - Do: <%= toDoList.DataZakonczenia %> -
+                                    Pilne: <%= toDoList.Pilne ? 'Tak' : 'Nie' %>
+                                        <a href="/ToDoLists/edit/<%= toDoList._id %>">Edytuj</a>
+                                        <form action="/ToDoLists/delete/<%= toDoList._id %>" method="POST"
                                             style="display:inline;">
                                             <button type="submit">Usuń</button>
                                         </form>

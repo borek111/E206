@@ -9,16 +9,16 @@ function getLoginForm(req, res) {
 }
 
 async function postLogin(req, res) {
-    const { Email, Password } = req.body;
+    const { Email: email, Password: password } = req.body;
 
     try {
-        const user = await usersModel.getUserByEmail(Email);
+        const user = await usersModel.getUserByEmail(email);
 
         if (!user) {
             return res.render('pages/login', { error: 'Nieprawidłowy email lub hasło' });
         }
 
-        const isValid = await usersModel.verifyPassword(user.password, Password);
+        const isValid = await usersModel.verifyPassword(user.password, password);
 
         if (!isValid) {
             return res.render('pages/login', { error: 'Nieprawidłowy email lub hasło' });
@@ -41,25 +41,25 @@ function getRegisterForm(req, res) {
 }
 
 async function postRegister(req, res) {
-    const { Email, Password } = req.body;
+    const { Email: email, Password: password } = req.body;
 
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-    if (!passwordRegex.test(Password)) {
+    if (!passwordRegex.test(password)) {
         return res.render('pages/register', { error: 'Hasło musi mieć co najmniej 8 znaków, zawierać jedną małą literę, jedną dużą literę i jedną cyfrę.' });
     }
 
     try {
-        const existingUser = await usersModel.getUserByEmail(Email);
+        const existingUser = await usersModel.getUserByEmail(email);
 
         if (existingUser) {
             return res.render('pages/register', { error: 'Użytkownik z tym adresem email już istnieje' });
         }
 
-        if (Password.length < 6) {
+        if (password.length < 6) {
             return res.render('pages/register', { error: 'Hasło musi mieć co najmniej 6 znaków' });
         }
 
-        await usersModel.createUser(Email, Password);
+        await usersModel.createUser(email, password);
 
         res.redirect('/');
     } catch (err) {
