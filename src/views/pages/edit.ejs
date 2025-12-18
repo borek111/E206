@@ -16,12 +16,12 @@
                             <option value="Zakończone" <%=toDoList.status==='Zakończone' ? 'selected' : '' %>>Zakończone
                             </option>
                         </select> <br>
-                        Data utworzenia: <input type="date" name="DataUtworzenia" value="<%= toDoList.DataUtworzenia %>"
-                            required>
+                        Data rozpoczęcia: <input type="date" name="dataRozpoczecia"
+                            value="<%= toDoList.dataRozpoczecia %>" required>
                         <br>
-                        Data zakończenia: <input type="date" name="DataZakonczenia"
-                            value="<%= toDoList.DataZakonczenia %>" required> <br>
-                        Pilne?: <input type="checkbox" name="Pilne" <%=toDoList.Pilne ? 'checked' : '' %>> <br>
+                        Data zakończenia: <input type="date" name="dataZakonczenia"
+                            value="<%= toDoList.dataZakonczenia %>" required> <br>
+                        Pilne?: <input type="checkbox" name="pilne" <%=toDoList.pilne ? 'checked' : '' %>> <br>
                         <button type="submit">Zapisz zmiany</button>
                     </form>
     </main>

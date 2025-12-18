@@ -18,13 +18,14 @@
                             <option value="Zakończone" <%=(typeof formData !=='undefined' &&
                                 formData.status==='Zakończone' ) ? 'selected' : '' %>>Zakończone</option>
                         </select> <br>
-                        Data utworzenia: <input type="date" name="DataUtworzenia"
-                            value="<%= typeof formData !== 'undefined' ? formData.DataUtworzenia : '' %>" required> <br>
-                        Data zakończenia: <input type="date" name="DataZakonczenia"
-                            value="<%= typeof formData !== 'undefined' ? formData.DataZakonczenia : '' %>" required>
+                        Data rozpoczęcia: <input type="date" name="dataRozpoczecia"
+                            value="<%= typeof formData !== 'undefined' ? formData.dataRozpoczecia : '' %>" required>
                         <br>
-                        Pilne?: <input type="checkbox" name="Pilne" <%=(typeof formData !=='undefined' &&
-                            formData.Pilne==='on' ) ? 'checked' : '' %>> <br>
+                        Data zakończenia: <input type="date" name="dataZakonczenia"
+                            value="<%= typeof formData !== 'undefined' ? formData.dataZakonczenia : '' %>" required>
+                        <br>
+                        Pilne?: <input type="checkbox" name="pilne" <%=(typeof formData !=='undefined' &&
+                            formData.pilne==='on' ) ? 'checked' : '' %>> <br>
                         <button type="submit">Dodaj notatkę</button>
                     </form>
     </main>

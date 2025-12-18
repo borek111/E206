@@ -16,12 +16,12 @@ app.use(cookieParser());
 
 app.use('/', authRouter);
 
-app.use('/', requireAuth, ToDoListsRouter);
+app.use('/ToDoLists', requireAuth, ToDoListsRouter);
 
 
 // Obsługa błędu 404 musi byc osobno, po wszystkich innych trasach (bo to nie jest bład aplikacji)
 app.use((req, res, next) => {
-    res.status(404).render('pages/errors/404', { token: req.cookies.token || null });
+    return res.status(404).render('pages/errors/404', { token: req.cookies.token || null });
 });
 
 
@@ -31,13 +31,6 @@ app.use((err, req, res, next) => {
 
     if (status === 401) {
         return res.status(401).render('pages/errors/401', { token: req.cookies.token || null });
-    }
-
-    if (status === 400) {
-        return res.status(400).render('pages/errors/400', {
-            message: err.message || 'Nieprawidłowe żądanie',
-            token: req.cookies.token || null
-        });
     }
 
     res.status(status).render('pages/errors/500', {

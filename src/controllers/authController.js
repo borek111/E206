@@ -9,7 +9,7 @@ function getLoginForm(req, res) {
 }
 
 async function postLogin(req, res) {
-    const { Email: email, Password: password } = req.body;
+    const { email, password } = req.body;
 
     try {
         const user = await usersModel.getUserByEmail(email);
@@ -41,7 +41,7 @@ function getRegisterForm(req, res) {
 }
 
 async function postRegister(req, res) {
-    const { Email: email, Password: password } = req.body;
+    const { email, password } = req.body;
 
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
     if (!passwordRegex.test(password)) {
@@ -53,10 +53,6 @@ async function postRegister(req, res) {
 
         if (existingUser) {
             return res.status(409).render('pages/register', { error: 'Użytkownik z tym adresem email już istnieje' });
-        }
-
-        if (password.length < 6) {
-            return res.status(400).render('pages/register', { error: 'Hasło musi mieć co najmniej 6 znaków' });
         }
 
         await usersModel.createUser(email, password);

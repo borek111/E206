@@ -4,7 +4,7 @@ async function getAll(req, res, next) {
     try {
         const filters = {
             title: req.query.title,
-            Pilne: req.query.Pilne,
+            pilne: req.query.pilne,
             sortBy: req.query.sortBy,
             sortOrder: req.query.sortOrder
         };
@@ -28,8 +28,8 @@ function getAddForm(req, res) {
     };
 
     const defaultFormData = {
-        DataUtworzenia: formatDate(now),
-        DataZakonczenia: formatDate(nextWeekDate)
+        dataRozpoczecia: formatDate(now),
+        dataZakonczenia: formatDate(nextWeekDate)
     };
 
     res.render('pages/add', { token: req.token, error: null, formData: defaultFormData });
@@ -37,18 +37,18 @@ function getAddForm(req, res) {
 
 async function postAdd(req, res, next) {
     try {
-        const { title, tresc, status, DataUtworzenia, DataZakonczenia } = req.body;
-        const Pilne = req.body.Pilne === 'on';
+        const { title, tresc, status, dataRozpoczecia, dataZakonczenia } = req.body;
+        const pilne = req.body.pilne === 'on';
 
-        if (new Date(DataZakonczenia) < new Date(DataUtworzenia)) {
+        if (new Date(dataZakonczenia) < new Date(dataRozpoczecia)) {
             return res.status(400).render('pages/add', {
                 token: req.token,
-                error: 'Data zakończenia nie może być wcześniej niż data utworzenia',
+                error: 'Data zakończenia nie może być wcześniej niż data rozpoczęcia',
                 formData: req.body
             });
         }
 
-        await ToDoListsModel.addToDoList(title, tresc, status, DataUtworzenia, DataZakonczenia, Pilne, req.user.userId.toString());
+        await ToDoListsModel.addToDoList(title, tresc, status, dataRozpoczecia, dataZakonczenia, pilne, req.user.userId.toString());
         res.redirect('/ToDoLists');
     } catch (err) {
         next(err);
@@ -71,27 +71,27 @@ async function getEditForm(req, res, next) {
 
 async function postEdit(req, res, next) {
     try {
-        const { title, tresc, status, DataUtworzenia, DataZakonczenia } = req.body;
-        const Pilne = req.body.Pilne === 'on';
+        const { title, tresc, status, dataRozpoczecia, dataZakonczenia } = req.body;
+        const pilne = req.body.pilne === 'on';
 
-        if (new Date(DataZakonczenia) < new Date(DataUtworzenia)) {
+        if (new Date(dataZakonczenia) < new Date(dataRozpoczecia)) {
             const toDoList = {
                 _id: req.params.id,
                 title,
                 tresc,
                 status,
-                DataUtworzenia,
-                DataZakonczenia,
-                Pilne
+                dataRozpoczecia,
+                dataZakonczenia,
+                pilne
             };
             return res.status(400).render('pages/edit', {
                 token: req.token,
-                error: 'Data zakończenia nie może być wcześniej niż data utworzenia',
+                error: 'Data zakończenia nie może być wcześniej niż data rozpoczęcia',
                 toDoList
             });
         }
 
-        await ToDoListsModel.updateToDoList(req.params.id, title, tresc, status, DataUtworzenia, DataZakonczenia, Pilne, req.user.userId.toString());
+        await ToDoListsModel.updateToDoList(req.params.id, title, tresc, status, dataRozpoczecia, dataZakonczenia, pilne, req.user.userId.toString());
         res.redirect('/ToDoLists');
     } catch (err) {
         next(err);

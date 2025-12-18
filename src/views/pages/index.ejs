@@ -4,16 +4,17 @@
             <h3>Filtrowanie i Sortowanie</h3>
             Tytuł: <input type="text" name="title" value="<%= filters.title || '' %>">
             Pilne:
-            <select name="Pilne">
-                <option value="" <%=filters.Pilne==='' ? 'selected' : '' %>>Wszystkie</option>
-                <option value="true" <%=filters.Pilne==='true' ? 'selected' : '' %>>Tak</option>
-                <option value="false" <%=filters.Pilne==='false' ? 'selected' : '' %>>Nie</option>
+            <select name="pilne">
+                <option value="" <%=filters.pilne==='' ? 'selected' : '' %>>Wszystkie</option>
+                <option value="true" <%=filters.pilne==='true' ? 'selected' : '' %>>Tak</option>
+                <option value="false" <%=filters.pilne==='false' ? 'selected' : '' %>>Nie</option>
             </select>
             <br>
             Sortuj po:
             <select name="sortBy">
                 <option value="title" <%=filters.sortBy==='title' ? 'selected' : '' %>>Tytuł</option>
-                <option value="DataUtworzenia" <%=filters.sortBy==='DataUtworzenia' ? 'selected' : '' %>>Data utworzenia
+                <option value="dataRozpoczecia" <%=filters.sortBy==='dataRozpoczecia' ? 'selected' : '' %>>Data
+                    rozpoczęcia
                 </option>
             </select>
             <select name="sortOrder">
@@ -31,8 +32,8 @@
                         <%= toDoList.title %>
                     </b> -
                     <%= toDoList.tresc %> - <%= toDoList.status %> -
-                            Od: <%= toDoList.DataUtworzenia %> - Do: <%= toDoList.DataZakonczenia %> -
-                                    Pilne: <%= toDoList.Pilne ? 'Tak' : 'Nie' %>
+                            Od: <%= toDoList.dataRozpoczecia %> - Do: <%= toDoList.dataZakonczenia %> -
+                                    Pilne: <%= toDoList.pilne ? 'Tak' : 'Nie' %>
                                         <a href="/ToDoLists/edit/<%= toDoList._id %>">Edytuj</a>
                                         <form action="/ToDoLists/delete/<%= toDoList._id %>" method="POST"
                                             style="display:inline;">

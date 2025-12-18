@@ -8,11 +8,11 @@ async function getAllToDoLists(id, filters = {}) {
     if (filters.title) {
         query.title = { $regex: filters.title, $options: 'i' };
     }
-    if (filters.Pilne) {
-        if (filters.Pilne === 'true') {
-            query.Pilne = true;
-        } else if (filters.Pilne === 'false') {
-            query.Pilne = false;
+    if (filters.pilne) {
+        if (filters.pilne === 'true') {
+            query.pilne = true;
+        } else if (filters.pilne === 'false') {
+            query.pilne = false;
         }
     }
 
@@ -30,16 +30,16 @@ async function getToDoListById(toDoListId, id) {
     return await db.collection('ToDoList').findOne({ _id: new ObjectId(toDoListId), id });
 }
 
-async function addToDoList(title, tresc, status, DataUtworzenia, DataZakonczenia, Pilne, id) {
+async function addToDoList(title, tresc, status, dataRozpoczecia, dataZakonczenia, pilne, id) {
     const db = getDB();
-    await db.collection('ToDoList').insertOne({ title, tresc, status, DataUtworzenia, DataZakonczenia, Pilne, id, createdAt: new Date() });
+    await db.collection('ToDoList').insertOne({ title, tresc, status, dataRozpoczecia, dataZakonczenia, pilne, id, createdAt: new Date() });
 }
 
-async function updateToDoList(toDoListId, title, tresc, status, DataUtworzenia, DataZakonczenia, Pilne, id) {
+async function updateToDoList(toDoListId, title, tresc, status, dataRozpoczecia, dataZakonczenia, pilne, id) {
     const db = getDB();
     await db.collection('ToDoList').updateOne(
         { _id: new ObjectId(toDoListId), id },
-        { $set: { title, tresc, status, DataUtworzenia, DataZakonczenia, Pilne } }
+        { $set: { title, tresc, status, dataRozpoczecia, dataZakonczenia, pilne } }
     );
 }
 
