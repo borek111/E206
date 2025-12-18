@@ -18,11 +18,16 @@ app.use('/', authRouter);
 
 app.use('/ToDoLists', requireAuth, ToDoListsRouter);
 
+//Testowy endpoint do generowania błędu 500
+app.get('/test-500', (req, res, next) => {
+    next(new Error('Testowy błąd serwera'));
+});
 
 // Obsługa błędu 404 musi byc osobno, po wszystkich innych trasach (bo to nie jest bład aplikacji)
 app.use((req, res, next) => {
     return res.status(404).render('pages/errors/404', { token: req.cookies.token || null });
 });
+
 
 
 app.use((err, req, res, next) => {

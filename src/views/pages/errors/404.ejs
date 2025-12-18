@@ -3,7 +3,11 @@
         <div>
             <h1>404 - Strona nie znaleziona</h1>
             <p>Przepraszamy, ale strona której szukasz nie istnieje.</p>
-            <a href="/ToDoLists">Wróć na stronę główną</a>
+            <% if (typeof token !=='undefined' && token) { %>
+                <a href="/ToDoLists">Wróć na stronę główną</a>
+                <% } else { %>
+                    <a href="/">Wróć do logowania</a>
+                    <% } %>
         </div>
     </main>
     <%- include('../../partials/footer') %>
