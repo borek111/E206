@@ -1,5 +1,7 @@
 const ToDoListsModel = require('../models/ToDoListsModel');
 
+const isValidObjectId = (id) => /^[0-9a-fA-F]{24}$/.test(id);
+
 async function getAll(req, res, next) {
     try {
         const filters = {
@@ -57,6 +59,11 @@ async function postAdd(req, res, next) {
 
 async function getEditForm(req, res, next) {
     try {
+        if (!isValidObjectId(req.params.id)) {
+            const error = new Error('Nie znaleziono listy zadań');
+            error.status = 404;
+            throw error;
+        }
         const toDoList = await ToDoListsModel.getToDoListById(req.params.id, req.user.userId.toString());
         if (!toDoList) {
             const error = new Error('Nie znaleziono listy zadań');
@@ -71,6 +78,11 @@ async function getEditForm(req, res, next) {
 
 async function postEdit(req, res, next) {
     try {
+        if (!isValidObjectId(req.params.id)) {
+            const error = new Error('Nie znaleziono listy zadań');
+            error.status = 404;
+            throw error;
+        }
         const { title, tresc, status, dataRozpoczecia, dataZakonczenia } = req.body;
         const pilne = req.body.pilne === 'on';
 
@@ -100,6 +112,11 @@ async function postEdit(req, res, next) {
 
 async function deleteToDoList(req, res, next) {
     try {
+        if (!isValidObjectId(req.params.id)) {
+            const error = new Error('Nie znaleziono listy zadań');
+            error.status = 404;
+            throw error;
+        }
         await ToDoListsModel.deleteToDoList(req.params.id, req.user.userId.toString());
         res.redirect('/ToDoLists');
     } catch (err) {

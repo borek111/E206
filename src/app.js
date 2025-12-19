@@ -23,9 +23,11 @@ app.get('/test-500', (req, res, next) => {
     next(new Error('Testowy błąd serwera'));
 });
 
-// Obsługa błędu 404 musi byc osobno, po wszystkich innych trasach (bo to nie jest bład aplikacji)
+// Obsługa błędu 404 gdy sciezka nie zostanie znaleziona
 app.use((req, res, next) => {
-    return res.status(404).render('pages/errors/404', { token: req.cookies.token || null });
+    const error = new Error('Strona nie została znaleziona');
+    error.status = 404;
+    next(error);
 });
 
 
@@ -36,6 +38,11 @@ app.use((err, req, res, next) => {
 
     if (status === 401) {
         return res.status(401).render('pages/errors/401', { token: req.cookies.token || null });
+    }
+
+    //Adres jest poprawny, ale dane są złe
+    if (status === 404) {
+        return res.status(404).render('pages/errors/404', { token: req.cookies.token || null });
     }
 
     res.status(status).render('pages/errors/500', {
