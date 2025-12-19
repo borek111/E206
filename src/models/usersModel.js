@@ -12,7 +12,7 @@ async function createUser(email, password) {
         type: argon2.argon2id,
         memoryCost: 65536,
         timeCost: 3,
-        parallelism: 4
+        parallelism: 1
     });
 
     const result = await db.collection('users').insertOne({

@@ -32,13 +32,13 @@
                         <%= toDoList.title %>
                     </b> -
                     <%= toDoList.tresc %> - <%= toDoList.status %> -
-                            Od: <%= toDoList.dataRozpoczecia %> - Do: <%= toDoList.dataZakonczenia %> -
-                                    Pilne: <%= toDoList.pilne ? 'Tak' : 'Nie' %>
-                                        <a href="/ToDoLists/edit/<%= toDoList._id %>">Edytuj</a>
-                                        <form action="/ToDoLists/delete/<%= toDoList._id %>" method="POST"
-                                            style="display:inline;">
-                                            <button type="submit">Usuń</button>
-                                        </form>
+                    Od: <%= toDoList.dataRozpoczecia %> - Do: <%= toDoList.dataZakonczenia %> -
+                    Pilne: <%= toDoList.pilne ? 'Tak' : 'Nie' %>
+                    <a href="/ToDoLists/edit/<%= toDoList._id %>">Edytuj</a>
+                    <form action="/ToDoLists/delete/<%= toDoList._id %>" method="POST"
+                        style="display:inline;">
+                        <button type="submit">Usuń</button>
+                    </form>
                 </li>
                 <% }) %>
         </ul>

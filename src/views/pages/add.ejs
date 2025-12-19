@@ -4,10 +4,10 @@
             <%= error %>
                 <% } %>
                     <form action="/ToDoLists/add" method="POST">
-                        tytuł: <input type="text" name="title" placeholder="Tytuł notatki"
+                        tytuł: <input type="text" name="title" placeholder="Tytuł zadania"
                             value="<%= typeof formData !== 'undefined' ? formData.title : '' %>" required minlength="3">
                         <br>
-                        tresc:<textarea name="tresc" placeholder="Treść notatki" required
+                        tresc:<textarea name="tresc" placeholder="Treść zadania" required
                             minlength="3"><%= typeof formData !== 'undefined' ? formData.tresc : '' %></textarea> <br>
                         status:
                         <select name="status" id="status" required>
